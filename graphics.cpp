@@ -4,6 +4,8 @@
 #include <allegro5\allegro_primitives.h>	
 #include <allegro5\allegro_native_dialog.h> 
 #include "logic.h"
+#include <cstdlib>
+#include <ctime>
 
 
 void set_graphics_x_o(int x, int y, int &turn, logic &game_logic);
@@ -21,6 +23,8 @@ int main(void)
 	int turn = 0;
 	ALLEGRO_DISPLAY *Screen = NULL;
 	int width = 640, height = 480;
+
+	srand(time(NULL));
 
 	if (!al_init())
 	{
@@ -89,13 +93,33 @@ int main(void)
 		}
 		draw_board();
 		game_message(gameover, game_logic, font);
-		if (draw && turn ==0)
+		// Human X move
+		if (draw && turn == 0)
 		{
 
 			set_graphics_x_o(posX, posY, turn, game_logic);
 
 			draw = false;
+
+			game_message(gameover, game_logic, font);
 		}
+		// Computer O move only if X did not already win or tie
+		if (turn == 1 && !gameover)
+		{
+			int oldTurn = turn;
+
+			while (turn == oldTurn)
+			{
+				int computerX = rand() % width;
+				int computerY = rand() % 375;
+
+				set_graphics_x_o(computerX, computerY, turn, game_logic);
+			}
+		}
+		// Clear the message area before drawing the final message for this frame
+		al_draw_filled_rectangle(0, 376, 640, 480, al_map_rgb(200, 200, 200));
+
+		game_message(gameover, game_logic, font);
 		al_flip_display();
 	}
 	al_rest(5.0);
