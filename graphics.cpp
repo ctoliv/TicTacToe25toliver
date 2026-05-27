@@ -70,7 +70,6 @@ int main(void)
 
 	game_logic.setup();
 	draw_board();
-	//game_message(gameover, game_logic);
 
 	al_flip_display();
 	while (!done && !gameover)
