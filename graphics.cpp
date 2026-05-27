@@ -93,7 +93,7 @@ int main(void)
 		}
 		draw_board();
 		game_message(gameover, game_logic, font);
-		// Human X move
+		// // Human player can only move when it is X's turn
 		if (draw && turn == 0)
 		{
 
@@ -103,7 +103,7 @@ int main(void)
 
 			game_message(gameover, game_logic, font);
 		}
-		// Computer O move only if X did not already win or tie
+		// // Computer randomly chooses a playable board location for O
 		if (turn == 1 && !gameover)
 		{
 			int oldTurn = turn;
@@ -153,9 +153,10 @@ void draw_o(int x, int y)
 	al_draw_circle(x, y, 62, al_map_rgb(255, 255, 0), 4);
 
 }
+// Places either X or O depending on whose turn it is
 void turn_xo(int x, int y, int &turn, int boardx, int boardy, logic  &game_logic)
 {
-
+	// Human X player's turn
 	if (turn == 0)
 	{
 		if (game_logic.set_x(boardx, boardy) == true)
@@ -164,6 +165,7 @@ void turn_xo(int x, int y, int &turn, int boardx, int boardy, logic  &game_logic
 			turn = 1;
 		}
 	}
+	// Computer O player's turn
 	else
 	{
 		if (game_logic.set_o(boardx, boardy) == true)
