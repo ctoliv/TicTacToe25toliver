@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <ctime>
 
-
+//Update to take turn 
 void set_graphics_x_o(int x, int y, int &turn, logic &game_logic);
 void draw_board();
 void draw_x(int x, int y);
@@ -17,6 +17,7 @@ void turn_xo(int x, int y, int &turn, int boardx, int boardy, logic  &game_logic
 
 int main(void)
 {
+//Moved turn to main
 	logic  game_logic;
 	int posX = 0, posY = 0;
 	bool gameover = false;
